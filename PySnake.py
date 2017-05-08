@@ -1,51 +1,44 @@
 # -*- coding: utf-8 -*-
 # ------------------------------
-# PySnake v3.0
+# PySnake v4.0
 # Auteur : Alexandre l'Heritier
 #-------------------------------
 from tkinter import *
 import random
 import time
 
-DEBUG = False
-version = "PySnake v3.0"
+DEBUG = True
+version = "PySnake v4.0"
 
 def _color(self, num_couleur):
 	if num_couleur == 0:
 		self.color = "#ffffff"
 		self.background = "#000000"
-		self.cadrepcouleur = "#ffffff"
-		self.cadredcouleur = "#ffffff"
+		self.cadrecouleur = "#ffffff"
 	elif num_couleur == 1:
 		self.color = "#ff0000"
 		self.background = "#840000"
-		self.cadrepcouleur = "#ff0000"
-		self.cadredcouleur = "#ff0000"
+		self.cadrecouleur = "#ff0000"
 	elif num_couleur == 2:
 		self.color = "#5386fc"
 		self.background = "#003b9b"
-		self.cadrepcouleur = "#5386fc"
-		self.cadredcouleur = "#5386fc"
+		self.cadrecouleur = "#5386fc"
 	elif num_couleur == 3:
 		self.color = "#00ff6f"
 		self.background = "#007c36"
-		self.cadrepcouleur = "#00ff6f"
-		self.cadredcouleur = "#00ff6f"
+		self.cadrecouleur = "#00ff6f"
 	elif num_couleur == 4:
 		self.color = "#000000"
 		self.background = "#ffffff"
-		self.cadrepcouleur = "#000000"
-		self.cadredcouleur = "#000000"
+		self.cadrecouleur = "#000000"
 	elif num_couleur == 5:
 		self.color = "#ff0000"
 		self.background = "#000000"
-		self.cadrepcouleur = "#ff0000"
-		self.cadredcouleur = "#ff0000"
+		self.cadrecouleur = "#ff0000"
 	elif num_couleur == 6:
 		self.color = "#0000ff"
 		self.background = "#000000"
-		self.cadrepcouleur = "#0000ff"
-		self.cadredcouleur = "#0000ff"
+		self.cadrecouleur = "#0000ff"
 	self.canvas.config(bg = self.background)
 
 def _dessin_line(self, posdeb, posfin, horiverti, xy):
@@ -95,9 +88,9 @@ def _verif_pos(self, newposx, newposy):
 	return (newposx, newposy)
 
 def _create_grille(self):
-	self.tab_menu.append(self.canvas.create_rectangle(self.cadrepx0, self.cadrepy0, self.cadrepx1, self.cadrepy1, outline=self.cadrepcouleur, width=5))
+	self.tab_menu.append(self.canvas.create_rectangle(self.cadrepx0, self.cadrepy0, self.cadrepx1, self.cadrepy1, outline=self.cadrecouleur, width=5))
 
-	self.tab_menu.append(self.canvas.create_rectangle(self.cadredx0, self.cadredy0, self.cadredx1, self.cadredy1, outline=self.cadredcouleur, width=1))
+	self.tab_menu.append(self.canvas.create_rectangle(self.cadredx0, self.cadredy0, self.cadredx1, self.cadredy1, outline=self.cadrecouleur, width=1))
 
 	for i in range(1, self.nb_ligne+1):
 		x0temp = self.cadredx0 + ((self.cadredx1 - self.cadredx0) / (self.nb_ligne + 1)) * i
@@ -121,7 +114,7 @@ def _create_menu(self):
 	self.cadrepy1 = self.HEIGHT - 10
 	self.cadrepcouleur = "#ffffff"
 
-	self.canvas.create_rectangle(self.cadrepx0, self.cadrepy0, self.cadrepx1, self.cadrepy1, outline=self.cadrepcouleur, width=5)
+	self.canvas.create_rectangle(self.cadrepx0, self.cadrepy0, self.cadrepx1, self.cadrepy1, outline=self.cadrecouleur, width=5)
 		
 	self.cadredx0 = self.cadrepx0 + 10
 	self.cadredy0 = self.cadrepy0 + 10
@@ -129,7 +122,7 @@ def _create_menu(self):
 	self.cadredy1 = self.cadrepy1 - 10
 	self.cadredcouleur = "#ffffff"
 		
-	self.canvas.create_rectangle(self.cadredx0, self.cadredy0, self.cadredx1, self.cadredy1, outline=self.cadredcouleur, width=1)
+	self.canvas.create_rectangle(self.cadredx0, self.cadredy0, self.cadredx1, self.cadredy1, outline=self.cadrecouleur, width=1)
 
 	self.nb_ligne = 42
 	self.nb_colonne = 22
@@ -267,9 +260,6 @@ def _level_0(self):
 	_create_grille(self)
 	self.tab_serpent_pos = [[4, 2], [3, 2], [2, 2]]
 	self.tab_serpent = []
-	self.tab_serpent.append(_dessin_carre(self, 4, 2))
-	self.tab_serpent.append(_dessin_carre(self, 3, 2))
-	self.tab_serpent.append(_dessin_carre(self, 2, 2))
 
 	self.murs_pos = []
 	self.murs = []
@@ -297,9 +287,6 @@ def _level_1(self):
 
 	self.tab_serpent_pos = [[4, 2], [3, 2], [2, 2]]
 	self.tab_serpent = []
-	self.tab_serpent.append(_dessin_carre(self, 4, 2))
-	self.tab_serpent.append(_dessin_carre(self, 3, 2))
-	self.tab_serpent.append(_dessin_carre(self, 2, 2))
 
 	self.murs_pos = [[9, 9], [9, 8], [9, 5], [9, 6], [9, 7], [10, 7], [11, 7], [12, 7], [13, 7], [14, 7], [15, 7], [15, 6], [15, 5], [15, 8], [15, 9]]
 	self.murs = []
@@ -326,6 +313,7 @@ def _level_1(self):
 
 	self.entrer_level_suivant = [0, 12]
 	self.limite_miam = 20
+	if DEBUG: self.limite_miam = 1
 	self.bonbon = 0
 
 	self.time = 500
@@ -338,9 +326,6 @@ def _level_2(self):
 
 	self.tab_serpent_pos = [[4, 2], [3, 2], [2, 2]]
 	self.tab_serpent = []
-	self.tab_serpent.append(_dessin_carre(self, 4, 2))
-	self.tab_serpent.append(_dessin_carre(self, 3, 2))
-	self.tab_serpent.append(_dessin_carre(self, 2, 2))
 
 	self.murs_pos = [[9, 9], [9, 8], [9, 5], [9, 6], [9, 7], [10, 7], [11, 7], [12, 7], [13, 7], [14, 7], [15, 7], [15, 6], [15, 5], [15, 8], [15, 9]]
 	self.murs = []
@@ -383,6 +368,7 @@ def _level_2(self):
 
 	self.entrer_level_suivant = [0, 12]
 	self.limite_miam = 20
+	if DEBUG: self.limite_miam = 1
 	self.bonbon = 0
 
 	self.time = 500
@@ -391,9 +377,225 @@ def _level_2(self):
 	self.updown = 0
 	self.leftright = 1
 
+def _level_3(self):
+	_color(self, 2)
+
+	_create_grille(self)
+
+	self.tab_serpent_pos = [[17, 2], [18, 2], [19, 2]]
+	self.tab_serpent = []
+
+	self.murs_pos = []
+	self.murs = []
+
+	temp = _dessin_line(self, 0, 24, "x", 7)
+	self.murs += temp[0]
+	self.murs_pos += temp[1]
+
+	self.miam_pos = [[12, 3], [12, 11]]
+	self.miam = []
+	self.miam.append(_dessin_rond(self, 12, 3))
+	self.miam.append(_dessin_rond(self, 12, 9))
+
+	self.entrer_level_suivant = [0, 12]
+	self.limite_miam = 20
+	if DEBUG: self.limite_miam = 1
+	self.bonbon = 0
+
+	self.time = 500
+	self.time_dim = -15
+
+	self.updown = 0
+	self.leftright = -1
+
+def _level_4(self):
+	self.nb_ligne = 36
+	self.nb_colonne = 21
+
+	_color(self, 3)
+
+	_create_grille(self)
+
+	self.tab_serpent_pos = [[16, 2], [17, 2], [18, 2], [19, 2], [20, 2]]
+	self.tab_serpent = []
+
+	self.murs_pos = []
+	self.murs = []
+
+	temp = _dessin_line(self, 0, 36, "x", 10)
+	self.murs += temp[0]
+	self.murs_pos += temp[1]
+
+	temp = _dessin_line(self, 0, 21, "y", 18)
+	self.murs += temp[0]
+	self.murs_pos += temp[1]
+
+	self.miam_pos = [[9, 5], [27, 5], [9, 14], [27, 14]]
+	self.miam = []
+	self.miam.append(_dessin_rond(self, 9, 5))
+	self.miam.append(_dessin_rond(self, 27, 5))
+	self.miam.append(_dessin_rond(self, 9, 16))
+	self.miam.append(_dessin_rond(self, 27, 16))
+
+	self.entrer_level_suivant = [0, 12]
+	self.limite_miam = 50
+	if DEBUG: self.limite_miam = 1
+	self.bonbon = 0
+
+	self.time = 300
+	self.time_dim = -2
+
+	self.updown = 0
+	self.leftright = -1
+
+def _level_5(self):
+	self.nb_ligne = 36
+	self.nb_colonne = 21
+
+	_color(self, 4)
+
+	_create_grille(self)
+
+	self.tab_serpent_pos = [[34, 8], [34, 9], [34, 10], [34, 11], [34, 12]]
+	self.tab_serpent = []
+
+	self.murs_pos = []
+	self.murs = []
+
+	temp = _dessin_line(self, 3, 33, "x", 10)
+	self.murs += temp[0]
+	self.murs_pos += temp[1]
+
+	temp = _dessin_line(self, 0, 15, "x", 0)
+	self.murs += temp[0]
+	self.murs_pos += temp[1]
+	
+	temp = _dessin_line(self, 21, 36, "x", 0)
+	self.murs += temp[0]
+	self.murs_pos += temp[1]
+
+	temp = _dessin_line(self, 0, 15, "x", 21)
+	self.murs += temp[0]
+	self.murs_pos += temp[1]
+
+	temp = _dessin_line(self, 21, 36, "x", 21)
+	self.murs += temp[0]
+	self.murs_pos += temp[1]
+
+	temp = _dessin_line(self, 3, 18, "y", 18)
+	self.murs += temp[0]
+	self.murs_pos += temp[1]
+
+	temp = _dessin_line(self, 0, 7, "y", 0)
+	self.murs += temp[0]
+	self.murs_pos += temp[1]
+
+	temp = _dessin_line(self, 13, 21, "y", 0)
+	self.murs += temp[0]
+	self.murs_pos += temp[1]
+
+	temp = _dessin_line(self, 0, 7, "y", 36)
+	self.murs += temp[0]
+	self.murs_pos += temp[1]
+
+	temp = _dessin_line(self, 13, 21, "y", 36)
+	self.murs += temp[0]
+	self.murs_pos += temp[1]
+
+	self.miam_pos = [[9, 5], [27, 5], [9, 14], [27, 14]]
+	self.miam = []
+	self.miam.append(_dessin_rond(self, 9, 5))
+	self.miam.append(_dessin_rond(self, 27, 5))
+	self.miam.append(_dessin_rond(self, 9, 16))
+	self.miam.append(_dessin_rond(self, 27, 16))
+
+	self.entrer_level_suivant = [0, 12]
+	self.limite_miam = 50
+	if DEBUG: self.limite_miam = 1
+	self.bonbon = 0
+
+	self.time = 300
+	self.time_dim = -2
+
+	self.updown = -1
+	self.leftright = 0
+
+def _level_6(self):
+	self.nb_ligne = 36
+	self.nb_colonne = 21
+
+	_color(self, 5)
+
+	_create_grille(self)
+
+	self.tab_serpent_pos = [[18, 5], [18, 6], [18, 7], [18, 8], [18, 9]]
+	self.tab_serpent = []
+
+	self.murs_pos = []
+	self.murs = []
+
+	temp = _dessin_line(self, 2, 16, "x", 5)
+	self.murs += temp[0]
+	self.murs_pos += temp[1]
+	temp = _dessin_line(self, 2, 16, "x", 4)
+	self.murs += temp[0]
+	self.murs_pos += temp[1]
+
+	temp = _dessin_line(self, 2, 16, "x", 10)
+	self.murs += temp[0]
+	self.murs_pos += temp[1]
+	temp = _dessin_line(self, 2, 16, "x", 11)
+	self.murs += temp[0]
+	self.murs_pos += temp[1]
+	
+	temp = _dessin_line(self, 2, 16, "x", 16)
+	self.murs += temp[0]
+	self.murs_pos += temp[1]
+	temp = _dessin_line(self, 2, 16, "x", 17)
+	self.murs += temp[0]
+	self.murs_pos += temp[1]
+
+	temp = _dessin_line(self, 20, 34, "x", 5)
+	self.murs += temp[0]
+	self.murs_pos += temp[1]
+	temp = _dessin_line(self, 20, 34, "x", 4)
+	self.murs += temp[0]
+	self.murs_pos += temp[1]
+
+	temp = _dessin_line(self, 20, 34, "x", 10)
+	self.murs += temp[0]
+	self.murs_pos += temp[1]
+	temp = _dessin_line(self, 20, 34, "x", 11)
+	self.murs += temp[0]
+	self.murs_pos += temp[1]
+
+	temp = _dessin_line(self, 20, 34, "x", 16)
+	self.murs += temp[0]
+	self.murs_pos += temp[1]
+	temp = _dessin_line(self, 20, 34, "x", 17)
+	self.murs += temp[0]
+	self.murs_pos += temp[1]
+
+	self.miam_pos = [[9, 7], [27, 7], [9, 12], [27, 12]]
+	self.miam = []
+	self.miam.append(_dessin_rond(self, 9, 7))
+	self.miam.append(_dessin_rond(self, 27, 7))
+	self.miam.append(_dessin_rond(self, 9, 14))
+	self.miam.append(_dessin_rond(self, 27, 14))
+
+	self.entrer_level_suivant = [0, 12]
+	self.limite_miam = 50
+	if DEBUG: self.limite_miam = 1
+	self.bonbon = 0
+
+	self.time = 300
+	self.time_dim = -2
+
+	self.updown = -1
+	self.leftright = 0
+
 def _play(self):
 
-	global DEBUG
 	self.updown = 0
 	self.leftright = 1
 	self.appui_touche = True
@@ -408,8 +610,8 @@ def _play(self):
 		_level_0(self)
 
 	self.information = []
-	self.information.append(self.canvas.create_text(self.WIDTH/2, self.HEIGHT * 1.02, fill = self.cadrepcouleur, font=("Purisa", 14)))
-	self.information.append(self.canvas.create_text(self.WIDTH/2, self.HEIGHT * 1.06, text = "Appuyer sur Echap pour retourner au menu principal", fill = self.cadrepcouleur, font=("Purisa", 14)))
+	self.information.append(self.canvas.create_text(self.WIDTH/2, self.HEIGHT * 1.02, fill = self.cadrecouleur, font=("Purisa", 14)))
+	self.information.append(self.canvas.create_text(self.WIDTH/2, self.HEIGHT * 1.06, text = "Appuyer sur Echap pour retourner au menu principal", fill = self.cadrecouleur, font=("Purisa", 14)))
 
 	def clavier(event):
 		touche = event.keysym
@@ -444,7 +646,6 @@ def _play(self):
 		if touche == "Escape":
 			self.quit = True
 	
-
 	def boucle():
 		
 		_avance_serpent(self)
@@ -465,8 +666,8 @@ def _play(self):
 			self.rect = []
 			self.rect.append(self.canvas.create_rectangle(self.WIDTH /3.96, self.HEIGHT /3.5, self.WIDTH /1.3333, self.HEIGHT /1.39, fill = self.background))
 			self.rect.append(self.canvas.create_text(self.WIDTH /2, self.HEIGHT /3, text = "Vous avez perdu", fill = self.color, font=("Purisa", 14)))
-			self.rect.append(self.canvas.create_text(self.WIDTH /2, self.HEIGHT /2, text = "Nb de bonbon : " + str(self.bonbon) + "    Niveau : " + str(self.niveau), fill = self.cadrepcouleur, font=("Purisa", 14)))
-			self.rect.append(self.canvas.create_text(self.WIDTH /2, self.HEIGHT *2/3, text = "Cliquer ici pour retourner au menu principal", fill = self.cadrepcouleur, font=("Purisa", 14)))
+			self.rect.append(self.canvas.create_text(self.WIDTH /2, self.HEIGHT /2, text = "Nb de bonbon : " + str(self.bonbon) + "    Niveau : " + str(self.niveau), fill = self.cadrecouleur, font=("Purisa", 14)))
+			self.rect.append(self.canvas.create_text(self.WIDTH /2, self.HEIGHT *2/3, text = "Cliquer ici pour retourner au menu principal", fill = self.cadrecouleur, font=("Purisa", 14)))
 
 			def clique(event):
 				if event.x < self.WIDTH /1.333 and event.x > self.WIDTH /3.96 and event.y < self.HEIGHT /1.39 and event.y > self.HEIGHT /3.5:
@@ -486,16 +687,37 @@ def _play(self):
 			self.bonbon = 0
 			if self.niveau == 1:
 				self.niveau += 1
-				self.information[0] = self.canvas.create_text(self.WIDTH/2, self.HEIGHT * 1.02, fill = self.cadrepcouleur, font=("Purisa", 14))
+				self.information[0] = self.canvas.create_text(self.WIDTH/2, self.HEIGHT * 1.02, fill = self.cadrecouleur, font=("Purisa", 14))
 				_level_2(self)
+
+			elif self.niveau == 2:
+				self.niveau += 1
+				self.information[0] = self.canvas.create_text(self.WIDTH/2, self.HEIGHT * 1.02, fill = self.cadrecouleur, font=("Purisa", 14))
+				_level_3(self)
+
+			elif self.niveau == 3:
+				self.niveau += 1
+				self.information[0] = self.canvas.create_text(self.WIDTH/2, self.HEIGHT * 1.02, fill = self.cadrecouleur, font=("Purisa", 14))
+				_level_4(self)
+
+			elif self.niveau == 4:
+				self.niveau += 1
+				self.information[0] = self.canvas.create_text(self.WIDTH/2, self.HEIGHT * 1.02, fill = self.cadrecouleur, font=("Purisa", 14))
+				_level_5(self)
+
+			elif self.niveau == 5:
+				self.niveau += 1
+				self.information[0] = self.canvas.create_text(self.WIDTH/2, self.HEIGHT * 1.02, fill = self.cadrecouleur, font=("Purisa", 14))
+				_level_6(self)
+
 			else:
 				self.continu = False
 				self.unbind("<Key>")
 				self.rect = []
 				self.rect.append(self.canvas.create_rectangle(self.WIDTH /3.96, self.HEIGHT /3.5, self.WIDTH /1.3333, self.HEIGHT /1.39, fill = self.background))
-				self.rect.append(self.canvas.create_text(self.WIDTH /2, self.HEIGHT /3, text = "Vous avez gagner !", fill = self.color, font=("Purisa", 14)))
-				self.rect.append(self.canvas.create_text(self.WIDTH /2, self.HEIGHT /2, text = "Nb de bonbon : " + str(self.bonbon) + "    Niveau : " + str(self.niveau), fill = self.cadrepcouleur, font=("Purisa", 14)))
-				self.rect.append(self.canvas.create_text(self.WIDTH /2, self.HEIGHT *2/3, text = "Cliquer ici pour retourner au menu principal", fill = self.cadrepcouleur, font=("Purisa", 14)))
+				self.rect.append(self.canvas.create_text(self.WIDTH /2, self.HEIGHT /3, text = "Vous avez gagné !", fill = self.color, font=("Purisa", 14)))
+				self.rect.append(self.canvas.create_text(self.WIDTH /2, self.HEIGHT /2, text = "Niveau : " + str(self.niveau), fill = self.cadrecouleur, font=("Purisa", 14)))
+				self.rect.append(self.canvas.create_text(self.WIDTH /2, self.HEIGHT *2/3, text = "Cliquer ici pour retourner au menu principal", fill = self.cadrecouleur, font=("Purisa", 14)))
 				def clique(event):
 					if event.x < self.WIDTH /1.333 and event.x > self.WIDTH /3.96 and event.y < self.HEIGHT /1.39 and event.y > self.HEIGHT /3.5:
 						self.unbind("<Button-1>")
@@ -508,18 +730,30 @@ def _play(self):
 				self.bind("<Button-1>", clique)
 
 		if self.mode:
-			self.canvas.itemconfig(self.information[0], text = "Niveau " + str(self.niveau) + "			Bonbons mangés : " + str(self.bonbon) + "		Bonbon restant : " + str(self.limite_miam), fill = self.cadrepcouleur)
-			self.canvas.itemconfig(self.information[1], fill = self.cadrepcouleur)
+			self.canvas.itemconfig(self.information[0], text = "Niveau " + str(self.niveau) + "			Bonbons mangés : " + str(self.bonbon) + "		Bonbon restant : " + str(self.limite_miam), fill = self.cadrecouleur)
+			self.canvas.itemconfig(self.information[1], fill = self.cadrecouleur)
 		else:
-			self.canvas.itemconfig(self.information[0], text = "Bonbons mangés : " + str(self.bonbon), fill = self.cadrepcouleur)
-			self.canvas.itemconfig(self.information[1], fill = self.cadrepcouleur)
+			self.canvas.itemconfig(self.information[0], text = "Bonbons mangés : " + str(self.bonbon), fill = self.cadrecouleur)
+			self.canvas.itemconfig(self.information[1], fill = self.cadrecouleur)
 			if self.bonbon % 5 == 0:
 				if self.change_color:
+					_efface_grille(self)
 					_color(self, random.randint(0, 6))
 					self.change_color = False
+					if self.bonbon % 20 == 0:
+						if self.nb_colonne < 63:
+							self.nb_colonne += 7
+							self.nb_ligne += 12
+						self.time -= 100
+						if self.time < 50:
+							self.time = 50
 					_create_grille(self)
-					for elems in self.miam:
-						self.canvas.itemconfig(elems, fill = self.color)
+					self.miam = []
+					for elems in self.miam_pos:
+						self.miam.append(_dessin_rond(self, elems[0], elems[1]))
+					self.information = []
+					self.information.append(self.canvas.create_text(self.WIDTH/2, self.HEIGHT * 1.02, fill = self.cadrecouleur, font=("Purisa", 14)))
+					self.information.append(self.canvas.create_text(self.WIDTH/2, self.HEIGHT * 1.06, text = "Appuyer sur Echap pour retourner au menu principal", fill = self.cadrecouleur, font=("Purisa", 14)))
 			else:
 				self.change_color = True
 		if self.quit:
@@ -544,7 +778,6 @@ class Application(Tk):
 
 		global version
 		
-		# Self config
 		self.tk_setPalette(background='#2d2d30', foreground='#ececec', activeBackground='#212123', activeForeground="#ffffff")
 
 		self.title(version)
@@ -569,4 +802,36 @@ main()
 A faire :
 - 2 joueurs
 - Plus de levels
+
+Changelog :
+v4.0 :
+Gestion de la couleur du mode infinie amélioré : remplacement de la grille au lieu de la superposition.
+Ajout de 4 nouveaux niveau.
+Ajout du changement de la taille de la grille et de la vitesse dans le mode infinie.
+Changement des couleurs un peu modifié.
+
+v3.0 :
+Ajout de la touche échap.
+Gestion de la modification de couleur dans le mode infinie.
+Création de l'écran win
+Ajout du support de zqsd.
+Tout les affichages sont maintenant calculé avec Width et Height.
+
+v2.0 :
+Création du mode survie ou aventure avec 2 niveaux.
+Création du game over.
+Le level 2 possede une autre couleur.
+Bonbon rond
+
+v1.0 :
+Première version (pas de beta)
+Création de la grille de déplacement.
+Création du serpent avec déplacement a l'aide des touches directionnelles.
+Création du bonbon permettant au serpent de grandir.
+Création du mur mais aucun effet.
+Création d'un menu principal.
+Reste à faire :
+- Game over en mordant la queux ou en touchant un mur.
+- Un mode aventure.
+- Des couleurs !
 """
