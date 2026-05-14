@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
+#------------------------------------------------------------------------------
+# Copyright 2017-2026 Alexandre l'Heritier
+# See the top-level LICENSE file for details.
+# SPDX-License-Identifier: GPL-3.0-or-later
+#------------------------------------------------------------------------------
 # ------------------------------
 # PySnake v5.0
-# Auteur : Alexandre l'Heritier
 #-------------------------------
 from tkinter import *
 import random
